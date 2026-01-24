@@ -12,9 +12,12 @@ essay_test/
 ├── articles/           # 記事フォルダ
 │   ├── YYYYMMDD-slug.html
 │   └── ...
-└── templates/          # テンプレート
-    └── article.html    # 記事テンプレート
+└── templates/          # ローカル専用（※Gitに含まれない）
+    ├── article.html    # 記事テンプレート
+    └── styleguide.html # スタイルガイド（部品一覧）
 ```
+
+> **Note:** `templates/` フォルダはローカル専用です。新しい環境では手動で作成してください。
 
 ## 記事の作成方法
 
@@ -52,6 +55,8 @@ essay_test/
 **注意:** 新しい記事はリストの一番上に追加してください。
 
 ## 使用できるHTML要素
+
+実際の見た目は `templates/styleguide.html` をブラウザで開いて確認できます。
 
 記事本文 (`<div class="content">` 内) で使用できる要素：
 
