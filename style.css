@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
+
 /* ============================================
    カスタマイズ用変数
    ※ここを変更すればサイト全体の色・フォントが変わります
@@ -8,7 +10,7 @@
   --color-text-light: #aaa;     /* 薄い文字色（日付、補足など） */
   --color-link: #707070;        /* リンク色 */
   --color-heading: #888;        /* 見出し・強調色 */
-  --font-main: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+  --font-main: "Quicksand", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
   --max-width: 600px;           /* コンテンツ最大幅 */
 }
 
@@ -163,11 +165,13 @@ footer p {
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   color: var(--color-text-light);
+  display: block;
+  margin-bottom: 0.3em;
 }
 
 .article-header h1 {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 580;
   margin-top: 0.3em;
   color: var(--color-heading);
 }
@@ -186,8 +190,8 @@ footer p {
 
 /* 見出し */
 .content h2 {
-  font-size: 1.25rem;
-  font-weight: 580;
+  font-size: 1.2rem;
+  font-weight: 500;
   margin-top: 2.5em;
   margin-bottom: 0.5em;
   color: var(--color-heading);
@@ -195,9 +199,10 @@ footer p {
 
 .content h3 {
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   margin-top: 2em;
   margin-bottom: 0.5em;
+  color: var(--color-heading);
 }
 
 /* リスト */
