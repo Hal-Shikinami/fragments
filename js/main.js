@@ -11,11 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
     footer.innerHTML = `&copy; ${SITE_CONFIG.year} ${SITE_CONFIG.blogTitle}`;
   }
 
-  // タイトルタグ（ページ固有の部分は保持）
-  const pageTitle = document.title;
-  if (pageTitle.includes(" - ")) {
-    const pagePart = pageTitle.split(" - ")[0];
-    document.title = `${pagePart} - ${SITE_CONFIG.blogTitle}`;
+  // タイトルタグ（ページ固有の部分があれば「ページ名 - サイト名」形式に）
+  const pageTitle = document.title.trim();
+  if (pageTitle) {
+    document.title = `${pageTitle} - ${SITE_CONFIG.blogTitle}`;
   } else {
     document.title = SITE_CONFIG.blogTitle;
   }
