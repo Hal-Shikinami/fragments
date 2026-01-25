@@ -6,15 +6,19 @@
 
 ```
 essay_test/
-├── index.html          # トップページ（記事一覧）
+├── index.html          # トップページ（記事一覧・自動生成）
 ├── about.html          # 知るページ（プロフィール）
 ├── style.css           # スタイルシート
 ├── js/                 # JavaScriptフォルダ
 │   ├── config.js       # サイト共通設定
 │   └── main.js         # 共通設定の適用スクリプト
+├── scripts/            # ビルドスクリプト
+│   └── build-index.js  # 記事一覧の自動生成
 ├── articles/           # 記事フォルダ
 │   ├── YYYYMMDD-slug.html
 │   └── ...
+├── .github/workflows/  # GitHub Actions
+│   └── build.yml       # 自動ビルド設定
 └── templates/          # ローカル専用（※Gitに含まれない）
     ├── article.html    # 記事テンプレート
     └── styleguide.html # スタイルガイド（部品一覧）
@@ -30,7 +34,7 @@ essay_test/
 
 **ファイル名の形式:** `YYYYMMDD-slug.html`
 
-例: `20250126-my-new-post.html`
+例: `20260126-my-new-post.html`
 
 ### 2. 記事の内容を編集
 
@@ -42,20 +46,19 @@ essay_test/
 | 日付 | `<span class="date">` | 2026.01.26 |
 | 本文 | `<div class="content">` 内 | 自由に記述 |
 
-### 3. index.html に記事を追加
+### 3. 記事一覧の更新
 
-`index.html` の `.article-list` 内に新しい記事へのリンクを追加します：
+**自動更新（推奨）:**
 
-```html
-<li>
-  <a href="articles/YYYYMMDD-slug.html">
-    <span class="date">YYYY.MM.DD</span>
-    <span class="title">記事タイトル</span>
-  </a>
-</li>
+mainブランチへのマージ時にGitHub Actionsが自動実行されます。手動での更新は不要です。
+
+**手動更新（ローカル確認用）:**
+
+```bash
+npm run build
 ```
 
-**注意:** 新しい記事はリストの一番上に追加してください。
+> **Note:** Node.js が必要です。
 
 ## 使用できるHTML要素
 
