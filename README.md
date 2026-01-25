@@ -93,14 +93,32 @@ essay_test/
 ```javascript
 const SITE_CONFIG = {
   blogTitle: "ブログタイトル",  // サイト名
-  year: 2026                    // コピーライト年
+  year: 2026,                   // コピーライト年
+  nav: [                        // ナビゲーション
+    { href: "index.html", label: "読む" },
+    { href: "about.html", label: "知る" }
+  ]
 };
 ```
 
 この設定は以下の箇所に自動的に反映されます：
-- ヘッダーのサイトタイトル
-- ページの `<title>` タグ
+- ヘッダー（サイトタイトル、ナビゲーション）
+- ページの `<title>` タグ（ナビページはconfig.jsのlabelを使用）
 - フッターのコピーライト表記
+
+### ナビゲーションの追加
+
+`nav` 配列に項目を追加すると、全ページのヘッダーに反映されます：
+
+```javascript
+nav: [
+  { href: "index.html", label: "読む" },
+  { href: "about.html", label: "知る" },
+  { href: "works.html", label: "作品" }  // 追加例
+]
+```
+
+> **Note:** 各HTMLファイルの `<header></header>` は空のままでOKです。JSが自動生成します。
 
 ## スタイルのカスタマイズ
 

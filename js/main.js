@@ -1,18 +1,68 @@
+/**
+ * サイト共通スクリプト
+ * ヘッダー、フッター、タイトルタグを自動生成します
+ */
 document.addEventListener("DOMContentLoaded", function() {
-  // ヘッダーのブログタイトル
-  const headerTitle = document.querySelector("header > h1 > a");
-  if (headerTitle) {
-    headerTitle.textContent = SITE_CONFIG.blogTitle;
+
+  // ============================================
+  // パス判定
+  // ============================================
+  // articles/内のページは親ディレクトリへのリンクが必要
+  const pathPrefix = location.pathname.includes("/articles/") ? "../" : "";
+
+  // 現在のページのファイル名を取得（例: "about.html"）
+  const currentPage = location.pathname.split("/").pop() || "index.html";
+
+  // 現在のページがナビゲーションに含まれているか確認
+  const currentNavItem = SITE_CONFIG.nav.find(item => item.href === currentPage);
+
+  // ============================================
+  // ヘッダー生成
+  // ============================================
+  const header = document.querySelector("header");
+  if (header) {
+    // ナビゲーションリンクを生成
+    // 現在のページには class="current" を付与
+    const navLinks = SITE_CONFIG.nav.map(item => {
+      const isCurrent = currentPage === item.href;
+      const currentClass = isCurrent ? ' class="current"' : '';
+      return `<a href="${pathPrefix}${item.href}"${currentClass}>${item.label}</a>`;
+    }).join("\n      ");
+
+    // ヘッダーのHTMLを挿入
+    header.innerHTML = `
+    <h1><a href="${pathPrefix}index.html">${SITE_CONFIG.blogTitle}</a></h1>
+    <nav>
+      ${navLinks}
+    </nav>`;
   }
 
-  // フッターのコピーライト
+  // ============================================
+  // フッター生成
+  // ============================================
   const footer = document.querySelector("footer > p");
   if (footer) {
     footer.innerHTML = `&copy; ${SITE_CONFIG.year} ${SITE_CONFIG.blogTitle}`;
   }
 
-  // タイトルタグ（ページ固有の部分があれば「ページ名 - サイト名」形式に）
-  const pageTitle = document.title.trim();
+  // ============================================
+  // タイトルタグ生成
+  // ============================================
+  // 優先順位:
+  // 1. ナビゲーションページ → config.jsのlabelを使用
+  // 2. 記事ページなど → HTMLの<title>タグの値を使用
+  // 3. 上記がない場合 → サイト名のみ
+  let pageTitle = "";
+
+  if (currentNavItem) {
+    // ナビゲーションページの場合はconfig.jsのlabelを使用
+    pageTitle = currentNavItem.label;
+  } else {
+    // それ以外はHTMLで設定されたタイトルを使用
+    pageTitle = document.title.trim();
+  }
+
+  // タイトルを設定（ページ名がある場合は「ページ名 - サイト名」形式）
   if (pageTitle) {
     document.title = `${pageTitle} - ${SITE_CONFIG.blogTitle}`;
   } else {

@@ -203,6 +203,10 @@ footer p {
   color: var(--color-heading);
 }
 
+.content h2.top {
+  margin-top: 0;
+}
+
 .content h3 {
   font-size: 1rem;
   font-weight: 500;

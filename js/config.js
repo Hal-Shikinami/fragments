@@ -7,5 +7,11 @@ const SITE_CONFIG = {
   blogTitle: "まだ何も考えていない",
 
   // コピーライト年（フッターに表示）
-  year: 2026
+  year: 2026,
+
+  // ナビゲーション
+  nav: [
+    { href: "index.html", label: "読む" },
+    { href: "about.html", label: "知る" }
+  ]
 };
