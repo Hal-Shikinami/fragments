@@ -9,6 +9,9 @@ essay_test/
 ├── index.html          # トップページ（記事一覧）
 ├── about.html          # 知るページ（プロフィール）
 ├── style.css           # スタイルシート
+├── js/                 # JavaScriptフォルダ
+│   ├── config.js       # サイト共通設定
+│   └── main.js         # 共通設定の適用スクリプト
 ├── articles/           # 記事フォルダ
 │   ├── YYYYMMDD-slug.html
 │   └── ...
@@ -82,6 +85,22 @@ essay_test/
 
 <img src="画像パス" alt="説明">
 ```
+
+## サイト共通設定
+
+`js/config.js` でサイト全体の共通情報を管理しています：
+
+```javascript
+const SITE_CONFIG = {
+  blogTitle: "ブログタイトル",  // サイト名
+  year: 2026                    // コピーライト年
+};
+```
+
+この設定は以下の箇所に自動的に反映されます：
+- ヘッダーのサイトタイトル
+- ページの `<title>` タグ
+- フッターのコピーライト表記
 
 ## スタイルのカスタマイズ
 
