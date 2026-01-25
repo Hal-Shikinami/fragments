@@ -111,11 +111,31 @@ const SITE_CONFIG = {
   --color-bg: #fefefc;          /* 背景色 */
   --color-text: #888;           /* 本文色 */
   --color-text-light: #aaa;     /* 薄い文字色 */
-  --color-link: #707070;        /* リンク色 */
+  --color-link: #888;           /* リンク色 */
+  --color-link-external: #a8d4e6; /* 外部リンク色（薄い水色） */
   --color-heading: #888;        /* 見出し色 */
   --max-width: 600px;           /* コンテンツ最大幅 */
 }
 ```
+
+## リンクの書き方
+
+### 内部リンク（サイト内）
+
+```html
+<a href="articles/example.html">記事タイトル</a>
+```
+
+### 外部リンク（他サイト）
+
+外部リンクには `target="_blank"` を付けると薄い水色で表示されます。
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener">リンクテキスト</a>
+```
+
+- `target="_blank"` - 新しいタブで開く（水色スタイルが適用される）
+- `rel="noopener"` - セキュリティ対策として推奨
 
 ## ブランチ運用ルール
 

@@ -8,7 +8,8 @@
   --color-bg: #fefefc;          /* 背景色 */
   --color-text: #888;           /* 本文色 */
   --color-text-light: #aaa;     /* 薄い文字色（日付、補足など） */
-  --color-link: #707070;        /* リンク色 */
+  --color-link: #888;           /* リンク色 */
+  --color-link-external: #a8d4e6; /* 外部リンク色（薄い水色） */
   --color-heading: #888;        /* 見出し・強調色 */
   --font-main: "Quicksand", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
   --max-width: 600px;           /* コンテンツ最大幅 */
@@ -48,6 +49,10 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+a[target="_blank"] {
+  color: var(--color-link-external);
 }
 
 /* ============================================
@@ -100,7 +105,7 @@ header nav a.current {
    Main
    ============================================ */
 main {
-  padding: 30px 0 60px;
+  padding: 15px 0 60px;
 }
 
 /* ============================================
@@ -157,7 +162,8 @@ footer p {
 
 /* 記事ヘッダー */
 .article-header {
-  margin-bottom: 2em;
+  margin-bottom: 0.5em;
+  padding: 10px 0 20px;
 }
 
 .article-header .date {
@@ -192,7 +198,7 @@ footer p {
 .content h2 {
   font-size: 1.2rem;
   font-weight: 500;
-  margin-top: 2.5em;
+  margin-top: 1.5em;
   margin-bottom: 0.5em;
   color: var(--color-heading);
 }
@@ -269,7 +275,6 @@ footer p {
 
 .content .profile-desc {
   margin-bottom: 0.5em;
-  color: var(--color-text-light);
 }
 
 .content .profile-links {
