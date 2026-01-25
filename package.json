@@ -1,0 +1,9 @@
+{
+  "name": "essay-blog",
+  "version": "1.0.0",
+  "description": "シンプルな静的ブログサイト",
+  "scripts": {
+    "build": "node scripts/build-index.js"
+  },
+  "private": true
+}
