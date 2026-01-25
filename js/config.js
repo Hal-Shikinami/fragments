@@ -14,6 +14,6 @@ const SITE_CONFIG = {
     { href: "about.html", label: "素性" },
     { href: "archive.html", label: "書庫" },
     { href: "daily.html", label: "日々" },
-    
+    { href: "works.html", label: "作品" },
   ]
 };
