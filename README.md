@@ -1,4 +1,4 @@
-# ブログタイトル
+# まだ何も考えていない
 
 シンプルな静的ブログサイトです。
 
@@ -6,31 +6,51 @@
 
 ```
 essay_test/
-├── index.html          # トップページ（記事一覧・自動生成）
-├── about.html          # 知るページ（プロフィール）
+├── index.html          # トップページ（素性ページへリダイレクト）
+├── about.html          # 素性ページ（プロフィール）
+├── archive.html        # 書庫（記事一覧・自動生成）
+├── daily.html          # 日々（日記一覧・自動生成）
 ├── style.css           # スタイルシート
 ├── js/                 # JavaScriptフォルダ
 │   ├── config.js       # サイト共通設定
 │   └── main.js         # 共通設定の適用スクリプト
 ├── scripts/            # ビルドスクリプト
 │   └── build-index.js  # 記事一覧の自動生成
-├── articles/           # 記事フォルダ
+├── archive/            # 書庫の記事フォルダ
+│   ├── YYYYMMDD-slug.html
+│   └── ...
+├── daily/              # 日々の記事フォルダ
 │   ├── YYYYMMDD-slug.html
 │   └── ...
 ├── .github/workflows/  # GitHub Actions
 │   └── build.yml       # 自動ビルド設定
 └── templates/          # ローカル専用（※Gitに含まれない）
-    ├── article.html    # 記事テンプレート
+    ├── article.html    # 書庫用記事テンプレート
+    ├── daily.html      # 日々用記事テンプレート
     └── styleguide.html # スタイルガイド（部品一覧）
 ```
 
 > **Note:** `templates/` フォルダはローカル専用です。新しい環境では手動で作成してください。
 
+## ページ構成
+
+| ページ | ファイル | 説明 |
+|--------|----------|------|
+| トップ | index.html | 素性ページへ自動リダイレクト |
+| 素性 | about.html | プロフィール・サイト説明 |
+| 書庫 | archive.html | 記事一覧（自動生成） |
+| 日々 | daily.html | 日記一覧（自動生成） |
+
 ## 記事の作成方法
 
 ### 1. 記事ファイルを作成
 
-`templates/article.html` をコピーして `articles/` フォルダに配置します。
+用途に応じてテンプレートをコピーします。
+
+| 種類 | テンプレート | 配置先 | 用途 |
+|------|-------------|--------|------|
+| 書庫 | `templates/article.html` | `archive/` | 通常の記事 |
+| 日々 | `templates/daily.html` | `daily/` | 日記・雑記 |
 
 **ファイル名の形式:** `YYYYMMDD-slug.html`
 
@@ -45,6 +65,8 @@ essay_test/
 | タイトル | `<title>` と `<h1>` | 記事のタイトルのみ（サイト名は自動追加） |
 | 日付 | `<span class="date">` | 2026.01.26 |
 | 本文 | `<div class="content">` 内 | 自由に記述 |
+
+> **Note:** 戻りリンク (`<div class="back-link"></div>`) は空のままでOKです。JSがフォルダに応じて自動生成します。
 
 ### 3. 記事一覧の更新
 
@@ -95,11 +117,12 @@ npm run build
 
 ```javascript
 const SITE_CONFIG = {
-  blogTitle: "ブログタイトル",  // サイト名
-  year: 2026,                   // コピーライト年
-  nav: [                        // ナビゲーション
-    { href: "index.html", label: "読む" },
-    { href: "about.html", label: "知る" }
+  blogTitle: "まだ何も考えていない",  // サイト名
+  year: 2026,                         // コピーライト年
+  nav: [                              // ナビゲーション
+    { href: "about.html", label: "素性" },
+    { href: "archive.html", label: "書庫" },
+    { href: "daily.html", label: "日々" }
   ]
 };
 ```
@@ -115,13 +138,27 @@ const SITE_CONFIG = {
 
 ```javascript
 nav: [
-  { href: "index.html", label: "読む" },
-  { href: "about.html", label: "知る" },
+  { href: "about.html", label: "素性" },
+  { href: "archive.html", label: "書庫" },
+  { href: "daily.html", label: "日々" },
   { href: "works.html", label: "作品" }  // 追加例
 ]
 ```
 
 > **Note:** 各HTMLファイルの `<header></header>` は空のままでOKです。JSが自動生成します。
+
+### 戻りリンクの設定
+
+記事ページの戻りリンクは `js/main.js` の `backLinkConfig` で管理しています：
+
+```javascript
+const backLinkConfig = {
+  "archive": { href: "archive.html", label: "書庫" },
+  "daily": { href: "daily.html", label: "日々" }
+};
+```
+
+新しいフォルダを追加する場合は、ここに設定を追加してください。
 
 ## スタイルのカスタマイズ
 
@@ -144,7 +181,7 @@ nav: [
 ### 内部リンク（サイト内）
 
 ```html
-<a href="articles/example.html">記事タイトル</a>
+<a href="archive/example.html">記事タイトル</a>
 ```
 
 ### 外部リンク（他サイト）

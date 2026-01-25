@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
   // ============================================
   // パス判定
   // ============================================
-  // articles/内のページは親ディレクトリへのリンクが必要
-  const pathPrefix = location.pathname.includes("/articles/") ? "../" : "";
+  // サブフォルダ内のページは親ディレクトリへのリンクが必要
+  const isInSubfolder = location.pathname.includes("/archive/") || location.pathname.includes("/daily/");
+  const pathPrefix = isInSubfolder ? "../" : "";
 
   // 現在のページのファイル名を取得（例: "about.html"）
   const currentPage = location.pathname.split("/").pop() || "index.html";
@@ -43,6 +44,27 @@ document.addEventListener("DOMContentLoaded", function() {
   const footer = document.querySelector("footer > p");
   if (footer) {
     footer.innerHTML = `&copy; ${SITE_CONFIG.year} ${SITE_CONFIG.blogTitle}`;
+  }
+
+  // ============================================
+  // 戻りリンク生成
+  // ============================================
+  // フォルダごとの戻り先設定
+  const backLinkConfig = {
+    "archive": { href: "archive.html", label: "書庫" },
+    "daily": { href: "daily.html", label: "日々" }
+  };
+
+  const backLink = document.querySelector(".back-link");
+  if (backLink) {
+    // 現在のパスからフォルダ名を取得
+    const pathParts = location.pathname.split("/");
+    const folderName = pathParts[pathParts.length - 2]; // 親フォルダ名
+    const config = backLinkConfig[folderName];
+
+    if (config) {
+      backLink.innerHTML = `<a href="../${config.href}">← ${config.label}に戻る</a>`;
+    }
   }
 
   // ============================================
