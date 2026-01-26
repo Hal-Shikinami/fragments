@@ -347,8 +347,8 @@ footer p {
   color: var(--color-heading);
 }
 
-.work-desc {
-  margin-bottom: 1em;
+.content .work-desc {
+  margin-bottom: 1.0em;
 }
 
 .work-video {
