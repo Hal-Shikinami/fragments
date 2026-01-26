@@ -17,10 +17,10 @@ essay_test/
 ├── scripts/            # ビルドスクリプト
 │   └── build-index.js  # 記事一覧の自動生成
 ├── archive/            # 書庫の記事フォルダ
-│   ├── YYYYMMDD-slug.html
+│   ├── YYYYMMDD.html
 │   └── ...
 ├── daily/              # 日々の記事フォルダ
-│   ├── YYYYMMDD-slug.html
+│   ├── YYYYMMDD.html
 │   └── ...
 ├── .github/workflows/  # GitHub Actions
 │   └── build.yml       # 自動ビルド設定
@@ -52,9 +52,9 @@ essay_test/
 | 書庫 | `templates/article.html` | `archive/` | 通常の記事 |
 | 日々 | `templates/daily.html` | `daily/` | 日記・雑記 |
 
-**ファイル名の形式:** `YYYYMMDD-slug.html`
+**ファイル名の形式:** `YYYYMMDD.html`
 
-例: `20260126-my-new-post.html`
+例: `20260126.html`
 
 ### 2. 記事の内容を編集
 
@@ -206,7 +206,7 @@ const backLinkConfig = {
 | `fix/` | バグ修正 | `fix/broken-link` |
 | `docs/` | ドキュメント更新 | `docs/readme` |
 | `style/` | スタイル調整 | `style/font-size` |
-| `post/` | 記事追加 | `post/20250126-new-article` |
+| `post/` | 記事追加 | `post/20260126` |
 
 ### ワークフロー
 
