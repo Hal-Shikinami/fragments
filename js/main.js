@@ -20,12 +20,23 @@ document.addEventListener("DOMContentLoaded", function() {
   // ============================================
   // ヘッダー生成
   // ============================================
+  // サブフォルダと親ページの対応
+  const folderToPage = {
+    "archive": "archive.html",
+    "daily": "daily.html"
+  };
+
+  // 現在のフォルダ名を取得
+  const pathParts = location.pathname.split("/");
+  const currentFolder = pathParts[pathParts.length - 2];
+  const parentPage = folderToPage[currentFolder];
+
   const header = document.querySelector("header");
   if (header) {
     // ナビゲーションリンクを生成
-    // 現在のページには class="current" を付与
+    // 現在のページまたは親ページには class="current" を付与
     const navLinks = SITE_CONFIG.nav.map(item => {
-      const isCurrent = currentPage === item.href;
+      const isCurrent = currentPage === item.href || parentPage === item.href;
       const currentClass = isCurrent ? ' class="current"' : '';
       return `<a href="${pathPrefix}${item.href}"${currentClass}>${item.label}</a>`;
     }).join("\n      ");
@@ -57,10 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const backLink = document.querySelector(".back-link");
   if (backLink) {
-    // 現在のパスからフォルダ名を取得
-    const pathParts = location.pathname.split("/");
-    const folderName = pathParts[pathParts.length - 2]; // 親フォルダ名
-    const config = backLinkConfig[folderName];
+    const config = backLinkConfig[currentFolder];
 
     if (config) {
       backLink.innerHTML = `<a href="../${config.href}">← ${config.label}に戻る</a>`;
