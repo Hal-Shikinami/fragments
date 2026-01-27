@@ -1,20 +1,24 @@
-# 記事一覧の自動ビルド
+# 記事一覧の自動ビルドとデプロイ
 #
 # mainブランチへのpush時に実行され、
-# archive.html と daily.html の記事一覧を自動更新します。
+# archive.html と daily.html の記事一覧を自動更新し、
+# GitHub Pagesにデプロイします。
 
-name: Build Article Index
+name: Build and Deploy
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'archive/**'
-      - 'daily/**'
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
@@ -45,3 +49,23 @@ jobs:
           git add archive.html daily.html
           git commit -m "build: 記事一覧を自動更新"
           git push
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
